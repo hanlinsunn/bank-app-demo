@@ -1,0 +1,34 @@
+<h1 class="page-title">Account overview</h1>
+
+<section class="accounts" *ngIf="accounts$ | async as accounts; else loading">
+  <boa-account-tile
+    *ngFor="let account of accounts"
+    [account]="account"
+    [balanceCaption]="balanceCaption(account)"
+  ></boa-account-tile>
+</section>
+
+<div class="panels">
+  <boa-card heading="Recent activity" subheading="Advantage Plus Banking ••1234">
+    <app-transaction-list [transactions]="(recentActivity$ | async) ?? []"></app-transaction-list>
+  </boa-card>
+
+  <boa-card heading="Market summary" [subheading]="(marketSummary$ | async)?.asOf ?? ''">
+    <ng-container *ngIf="marketSummary$ | async as summary; else loading">
+      <ul class="market">
+        <li class="market__row" *ngFor="let indicator of summary.indicators">
+          <span class="market__label">{{ indicator.label }}</span>
+          <span class="market__value">{{ indicator.value }}</span>
+          <span class="market__change" [class.market__change--down]="indicator.changePercent < 0">
+            {{ indicator.changePercent > 0 ? '+' : '' }}{{ indicator.changePercent }}%
+          </span>
+        </li>
+      </ul>
+      <p class="market__source">Source: mocked market-data provider integration</p>
+    </ng-container>
+  </boa-card>
+</div>
+
+<ng-template #loading>
+  <mat-spinner diameter="28"></mat-spinner>
+</ng-template>

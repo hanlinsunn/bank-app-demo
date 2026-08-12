@@ -1,0 +1,309 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
+  "newProjectRoot": "libs",
+  "projects": {
+    "online-banking": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/online-banking",
+      "sourceRoot": "apps/online-banking/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/online-banking",
+            "index": "apps/online-banking/src/index.html",
+            "main": "apps/online-banking/src/main.ts",
+            "polyfills": "apps/online-banking/src/polyfills.ts",
+            "tsConfig": "apps/online-banking/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/online-banking/src/favicon.ico",
+              "apps/online-banking/src/assets"
+            ],
+            "styles": [
+              "apps/online-banking/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/online-banking/src/environments/environment.ts",
+                  "with": "apps/online-banking/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "online-banking:build:production"
+            },
+            "development": {
+              "browserTarget": "online-banking:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4200
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "online-banking:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/online-banking/src/test.ts",
+            "polyfills": "apps/online-banking/src/polyfills.ts",
+            "tsConfig": "apps/online-banking/tsconfig.spec.json",
+            "karmaConfig": "apps/online-banking/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/online-banking/src/favicon.ico",
+              "apps/online-banking/src/assets"
+            ],
+            "styles": [
+              "apps/online-banking/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/online-banking/**/*.ts",
+              "apps/online-banking/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "credit-card-portal": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/credit-card-portal",
+      "sourceRoot": "apps/credit-card-portal/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/credit-card-portal",
+            "index": "apps/credit-card-portal/src/index.html",
+            "main": "apps/credit-card-portal/src/main.ts",
+            "polyfills": "apps/credit-card-portal/src/polyfills.ts",
+            "tsConfig": "apps/credit-card-portal/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/credit-card-portal/src/favicon.ico",
+              "apps/credit-card-portal/src/assets"
+            ],
+            "styles": [
+              "apps/credit-card-portal/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/credit-card-portal/src/environments/environment.ts",
+                  "with": "apps/credit-card-portal/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "credit-card-portal:build:production"
+            },
+            "development": {
+              "browserTarget": "credit-card-portal:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4201
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "credit-card-portal:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/credit-card-portal/src/test.ts",
+            "polyfills": "apps/credit-card-portal/src/polyfills.ts",
+            "tsConfig": "apps/credit-card-portal/tsconfig.spec.json",
+            "karmaConfig": "apps/credit-card-portal/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/credit-card-portal/src/favicon.ico",
+              "apps/credit-card-portal/src/assets"
+            ],
+            "styles": [
+              "apps/credit-card-portal/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/credit-card-portal/**/*.ts",
+              "apps/credit-card-portal/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "boa-design-system": {
+      "projectType": "library",
+      "root": "libs/boa-design-system",
+      "sourceRoot": "libs/boa-design-system/src",
+      "prefix": "boa",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/boa-design-system/src/test.ts",
+            "tsConfig": "libs/boa-design-system/tsconfig.spec.json",
+            "karmaConfig": "libs/boa-design-system/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/boa-design-system/**/*.ts",
+              "libs/boa-design-system/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "integrations": {
+      "projectType": "library",
+      "root": "libs/integrations",
+      "sourceRoot": "libs/integrations/src",
+      "prefix": "boa",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/integrations/src/test.ts",
+            "tsConfig": "libs/integrations/tsconfig.spec.json",
+            "karmaConfig": "libs/integrations/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/integrations/**/*.ts",
+              "libs/integrations/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "banking-data": {
+      "projectType": "library",
+      "root": "libs/banking-data",
+      "sourceRoot": "libs/banking-data/src",
+      "prefix": "boa",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/banking-data/src/test.ts",
+            "tsConfig": "libs/banking-data/tsconfig.spec.json",
+            "karmaConfig": "libs/banking-data/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/banking-data/**/*.ts",
+              "libs/banking-data/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

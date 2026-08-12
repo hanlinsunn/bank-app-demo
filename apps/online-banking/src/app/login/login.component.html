@@ -1,0 +1,19 @@
+<div class="login">
+  <boa-card heading="Sign in" subheading="Online Banking">
+    <p class="login__copy">
+      Use your Bank of America enterprise single sign-on to access your accounts. This demo signs in a
+      predefined customer and MFA always succeeds.
+    </p>
+
+    <boa-alert *ngIf="error" tone="error" title="Sign-in failed">{{ error }}</boa-alert>
+
+    <div class="login__actions">
+      <boa-button [disabled]="signingIn" (pressed)="signInWithSso()">
+        {{ signingIn ? 'Signing in…' : 'Sign in with BofA SSO' }}
+      </boa-button>
+      <mat-spinner *ngIf="signingIn" diameter="22"></mat-spinner>
+    </div>
+
+    <p class="login__hint">Demo customer: Alex Morgan · demo-user-001</p>
+  </boa-card>
+</div>

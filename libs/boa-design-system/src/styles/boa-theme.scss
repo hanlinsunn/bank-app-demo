@@ -1,0 +1,94 @@
+// BoA design system theme. Built on the Angular Material 14 (pre-MDC) Sass
+// theming API: mat.core() plus the all-component-themes mixin. Both apps import
+// this file instead of theming Material directly.
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$boa-primary-palette: (
+  50: #e6eef5,
+  100: #c0d4e6,
+  200: #96b8d5,
+  300: #6c9bc4,
+  400: #4d85b8,
+  500: #012169,
+  600: #011c5c,
+  700: #01174d,
+  800: #01123d,
+  900: #000a26,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
+$boa-accent-palette: (
+  50: #fdeaec,
+  100: #f9cbd0,
+  200: #f4a8b0,
+  300: #ef8590,
+  400: #eb6a78,
+  500: #e31837,
+  600: #cc1531,
+  700: #b01229,
+  800: #940f22,
+  900: #6b0b19,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
+$boa-primary: mat.define-palette($boa-primary-palette, 500);
+$boa-accent: mat.define-palette($boa-accent-palette, 500);
+$boa-warn: mat.define-palette(mat.$red-palette);
+
+$boa-typography: mat.define-typography-config(
+  $font-family: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+);
+
+$boa-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $boa-primary,
+      accent: $boa-accent,
+      warn: $boa-warn,
+    ),
+    typography: $boa-typography,
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($boa-theme);
+
+:root {
+  --boa-navy: #012169;
+  --boa-red: #e31837;
+  --boa-page-bg: #f4f6f9;
+  --boa-border: #e0e4ea;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--boa-page-bg);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: rgba(0, 0, 0, 0.87);
+}

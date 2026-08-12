@@ -1,0 +1,12 @@
+/* Compilation settings for the library sources; the apps compile these files
+   through the workspace path aliases. */
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/lib",
+    "declaration": true,
+    "types": []
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/test.ts", "**/*.spec.ts"]
+}
