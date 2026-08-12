@@ -18,15 +18,27 @@ import { Component, Input } from '@angular/core';
   `,
   styles: [
     `
+      :host {
+        display: block;
+        height: 100%;
+      }
+
       .boa-card {
         border-radius: 10px;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .boa-card__content {
+        flex: 1 1 auto;
       }
 
       .boa-card__header {
         display: flex;
         align-items: baseline;
-        justify-content: space-between;
-        gap: 12px;
+        gap: 10px;
         padding: 16px 16px 0;
       }
 

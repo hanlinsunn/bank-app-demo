@@ -1,9 +1,9 @@
 <h1 class="page-title">Recent transactions</h1>
 
-<boa-card [heading]="accountLabel(accounts$ | async)">
+<boa-card>
   <mat-form-field appearance="outline" class="account-picker">
     <mat-label>Account</mat-label>
-    <mat-select [(value)]="selectedAccountId">
+    <mat-select [formControl]="account">
       <mat-option *ngFor="let option of accountOptions$ | async" [value]="option.id">{{ option.label }}</mat-option>
     </mat-select>
   </mat-form-field>

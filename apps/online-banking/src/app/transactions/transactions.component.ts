@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { Account, Transaction } from '@boa/models';
 import { AccountService, TransactionService } from '@boa/banking-data';
 
@@ -10,9 +11,9 @@ import { AccountService, TransactionService } from '@boa/banking-data';
   styleUrls: ['./transactions.component.scss'],
 })
 export class TransactionsComponent implements OnInit {
-  accounts$!: Observable<Account[]>;
+  accountOptions$!: Observable<{ id: string; label: string }[]>;
   transactions$!: Observable<Transaction[]>;
-  selectedAccountId = 'chk-1234';
+  readonly account = new FormControl('chk-1234', { nonNullable: true });
 
   constructor(
     private readonly accountService: AccountService,
@@ -20,22 +21,16 @@ export class TransactionsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.accounts$ = this.accountService.getAccounts();
-    this.transactions$ = this.transactionService.getDepositTransactions();
+    this.accountOptions$ = this.accountService.getAccounts().pipe(
+      map((accounts: Account[]) =>
+        accounts.map((account) => ({ id: account.id, label: `${account.nickname} ${account.maskedNumber}` }))
+      ),
+      shareReplay(1)
+    );
+    this.transactions$ = this.transactionService.getDepositTransactions().pipe(shareReplay(1));
   }
 
   visibleTransactions(transactions: Transaction[] | null): Transaction[] {
-    return (transactions ?? []).filter((transaction) => transaction.accountId === this.selectedAccountId);
-  }
-
-  accountLabel(accounts: Account[] | null): string {
-    const account = (accounts ?? []).find((candidate) => candidate.id === this.selectedAccountId);
-    return account ? `${account.nickname} ${account.maskedNumber}` : '';
-  }
-
-  get accountOptions$(): Observable<{ id: string; label: string }[]> {
-    return this.accounts$.pipe(
-      map((accounts) => accounts.map((account) => ({ id: account.id, label: `${account.nickname} ${account.maskedNumber}` })))
-    );
+    return (transactions ?? []).filter((transaction) => transaction.accountId === this.account.value);
   }
 }

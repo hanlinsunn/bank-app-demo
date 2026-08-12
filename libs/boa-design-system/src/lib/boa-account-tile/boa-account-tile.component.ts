@@ -15,9 +15,16 @@ import { Account } from '@boa/models';
   `,
   styles: [
     `
+      :host {
+        display: block;
+        height: 100%;
+      }
+
       .boa-account-tile {
         padding: 18px;
         border-radius: 10px;
+        height: 100%;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         gap: 6px;
