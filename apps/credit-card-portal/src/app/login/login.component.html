@@ -1,0 +1,19 @@
+<div class="login">
+  <boa-card heading="Sign in" subheading="Credit Card Portal">
+    <p class="login__copy">
+      The Credit Card Portal reuses the same mocked BofA SSO integration and the same boa-design-system
+      components as Online Banking.
+    </p>
+
+    <boa-alert *ngIf="error" tone="error" title="Sign-in failed">{{ error }}</boa-alert>
+
+    <div class="login__actions">
+      <boa-button [disabled]="signingIn" (pressed)="signInWithSso()">
+        {{ signingIn ? 'Signing in…' : 'Sign in with BofA SSO' }}
+      </boa-button>
+      <mat-spinner *ngIf="signingIn" diameter="22"></mat-spinner>
+    </div>
+
+    <p class="login__hint">Demo customer: Alex Morgan · demo-user-001</p>
+  </boa-card>
+</div>

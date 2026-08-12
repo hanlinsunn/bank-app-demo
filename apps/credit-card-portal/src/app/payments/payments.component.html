@@ -1,0 +1,40 @@
+<h1 class="page-title">Make a payment</h1>
+
+<boa-card heading="Pay your credit card" subheading="Submission is mocked">
+  <ng-container *ngIf="card$ | async as card">
+    <p class="due">
+      {{ card.minimumPayment | currency }} minimum due {{ card.paymentDueDate }} · statement balance
+      {{ card.balance | currency }}
+    </p>
+
+    <form class="payment" [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Pay from</mat-label>
+        <mat-select formControlName="fromAccountId">
+          <mat-option *ngFor="let option of fundingAccounts$ | async" [value]="option.id">{{ option.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input matInput type="number" min="0.01" step="0.01" formControlName="amount" />
+        <span matPrefix>$&nbsp;</span>
+      </mat-form-field>
+
+      <div class="payment__presets">
+        <boa-button variant="ghost" (pressed)="payMinimum(card)">Minimum</boa-button>
+        <boa-button variant="ghost" (pressed)="payFullBalance(card)">Full balance</boa-button>
+      </div>
+
+      <div class="payment__actions">
+        <boa-button type="submit" [disabled]="submitting">{{ submitting ? 'Submitting…' : 'Submit payment' }}</boa-button>
+      </div>
+    </form>
+  </ng-container>
+
+  <boa-alert *ngIf="error" tone="error" title="Payment not submitted">{{ error }}</boa-alert>
+
+  <boa-alert *ngIf="receipt" tone="success" title="Payment submitted">
+    {{ receipt.request.amount | currency }} posted. Confirmation {{ receipt.confirmationNumber }}.
+  </boa-alert>
+</boa-card>

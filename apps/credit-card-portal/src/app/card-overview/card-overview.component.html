@@ -1,0 +1,26 @@
+<h1 class="page-title">Credit card overview</h1>
+
+<ng-container *ngIf="card$ | async as card; else loading">
+  <section class="summary">
+    <boa-account-tile [account]="card" balanceCaption="Current balance"></boa-account-tile>
+
+    <boa-card heading="Available credit">
+      <div class="metric">{{ card.availableCredit | currency }}</div>
+      <p class="metric__caption">of {{ card.availableCredit + card.balance | currency }} total credit line</p>
+    </boa-card>
+
+    <boa-card heading="Payment due">
+      <div class="metric">{{ card.minimumPayment | currency }}</div>
+      <p class="metric__caption">Minimum payment due {{ card.paymentDueDate }}</p>
+      <boa-button variant="secondary" routerLink="/payments">Make a payment</boa-button>
+    </boa-card>
+  </section>
+
+  <boa-card heading="Recent card transactions" [subheading]="card.nickname + ' ' + card.maskedNumber">
+    <app-card-transaction-list [transactions]="(transactions$ | async) ?? []"></app-card-transaction-list>
+  </boa-card>
+</ng-container>
+
+<ng-template #loading>
+  <mat-spinner diameter="28"></mat-spinner>
+</ng-template>

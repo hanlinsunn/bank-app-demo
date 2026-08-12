@@ -1,0 +1,28 @@
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.due {
+  margin: 0 0 18px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.payment {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 4px 16px;
+  align-items: start;
+
+  &__presets,
+  &__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+  }
+
+  &__actions {
+    margin: 8px 0 18px;
+  }
+}

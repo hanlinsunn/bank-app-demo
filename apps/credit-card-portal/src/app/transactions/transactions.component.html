@@ -1,0 +1,5 @@
+<h1 class="page-title">Recent transactions</h1>
+
+<boa-card [heading]="(card$ | async)?.nickname ?? ''" [subheading]="(card$ | async)?.maskedNumber ?? ''">
+  <app-card-transaction-list [transactions]="(transactions$ | async) ?? []"></app-card-transaction-list>
+</boa-card>

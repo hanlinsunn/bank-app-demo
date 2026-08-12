@@ -1,0 +1,36 @@
+<h1 class="page-title">Transfer money</h1>
+
+<boa-card heading="Between my accounts" subheading="Submission is mocked">
+  <form class="transfer" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline">
+      <mat-label>From</mat-label>
+      <mat-select formControlName="fromAccountId">
+        <mat-option *ngFor="let option of accountOptions$ | async" [value]="option.id">{{ option.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>To</mat-label>
+      <mat-select formControlName="toAccountId">
+        <mat-option *ngFor="let option of accountOptions$ | async" [value]="option.id">{{ option.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" min="0.01" step="0.01" formControlName="amount" />
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+
+    <div class="transfer__actions">
+      <boa-button type="submit" [disabled]="submitting">{{ submitting ? 'Submitting…' : 'Submit transfer' }}</boa-button>
+      <boa-button variant="secondary" [disabled]="submitting" (pressed)="form.reset()">Reset</boa-button>
+    </div>
+  </form>
+
+  <boa-alert *ngIf="error" tone="error" title="Transfer not submitted">{{ error }}</boa-alert>
+
+  <boa-alert *ngIf="receipt" tone="success" title="Transfer submitted">
+    {{ receipt.request.amount | currency }} scheduled. Confirmation {{ receipt.confirmationNumber }}.
+  </boa-alert>
+</boa-card>

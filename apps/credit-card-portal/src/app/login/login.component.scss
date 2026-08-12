@@ -1,0 +1,23 @@
+.login {
+  max-width: 520px;
+  margin: 40px auto 0;
+
+  &__copy {
+    margin: 0 0 16px;
+    color: rgba(0, 0, 0, 0.7);
+    line-height: 1.5;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  &__hint {
+    margin: 20px 0 0;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+}

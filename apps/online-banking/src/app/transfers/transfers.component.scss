@@ -1,0 +1,19 @@
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.transfer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 4px 16px;
+  align-items: start;
+
+  &__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    margin: 4px 0 18px;
+  }
+}
