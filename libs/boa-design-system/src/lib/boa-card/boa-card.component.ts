@@ -3,6 +3,11 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'boa-card',
   template: `
+    <!-- The action slot must be declared before the catch-all slot: Angular matches
+         projected nodes in declaration order, and a selector-less ng-content takes all. -->
+    <ng-template #actions>
+      <ng-content select="[boaCardActions]"></ng-content>
+    </ng-template>
     <mat-card class="boa-card">
       <div class="boa-card__header" *ngIf="heading">
         <h2 class="boa-card__heading">{{ heading }}</h2>
@@ -12,7 +17,7 @@ import { Component, Input } from '@angular/core';
         <ng-content></ng-content>
       </mat-card-content>
       <mat-card-actions class="boa-card__actions" *ngIf="showActions">
-        <ng-content select="[boaCardActions]"></ng-content>
+        <ng-container [ngTemplateOutlet]="actions"></ng-container>
       </mat-card-actions>
     </mat-card>
   `,
