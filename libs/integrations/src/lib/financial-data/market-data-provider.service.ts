@@ -16,6 +16,13 @@ export class MarketDataProviderService {
         { label: 'S&P 500', value: '5,431.60', changePercent: 0.42 },
         { label: '10-Year Treasury Yield', value: '4.18%', changePercent: -0.03 },
         { label: 'Dow Jones', value: '39,127.14', changePercent: 0.18 },
+        { label: 'Nasdaq Composite', value: '17,689.36', changePercent: 0.65 },
+        { label: 'Russell 2000', value: '2,043.87', changePercent: -0.21 },
+        { label: 'BAC', value: '$41.27', changePercent: 0.54 },
+        { label: 'Gold', value: '$2,338.90', changePercent: -0.12 },
+        { label: 'WTI Crude', value: '$78.42', changePercent: 1.06 },
+        { label: 'EUR / USD', value: '1.0874', changePercent: -0.08 },
+        { label: '30-Year Fixed Mortgage', value: '6.74%', changePercent: -0.05 },
       ],
     };
     return of(summary).pipe(delay(400));
