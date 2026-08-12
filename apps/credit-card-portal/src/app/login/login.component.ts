@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { BoaSsoService } from '@boa/integrations';
+import { BoaSsoService, resolveReturnUrl } from '@boa/integrations';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +32,7 @@ export class LoginComponent {
             this.error = 'MFA verification failed.';
             return;
           }
-          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/card-overview';
+          const returnUrl = resolveReturnUrl(this.route.snapshot.queryParamMap.get('returnUrl'), '/card-overview');
           this.router.navigateByUrl(returnUrl);
         },
         error: () => {
