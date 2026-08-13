@@ -27,8 +27,9 @@ independent consumers of one internal library — the shape of the real migratio
 
 ## Quick start
 
-Requires Node.js 16.10+ (Node 18 recommended; the Angular 14 CLI prints a warning on newer majors)
-and a Chrome/Chromium install for the Karma test runner.
+Requires Node.js 20 LTS (pinned in `.nvmrc`; the Angular 14 CLI prints an unsupported-engine warning
+on it, which is expected and harmless) and a Chrome/Chromium install for the Karma test runner.
+Node 20 is the version the Angular 15→18 migration targets, so the baseline is verified on it.
 
 ```bash
 npm install
