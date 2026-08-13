@@ -73,7 +73,7 @@ boa-digital-banking/
 │       └── payments/                  # mocked payment submission
 ├── libs/
 │   ├── boa-design-system/src/
-│   │   ├── lib/boa-button/            # planted Angular 14 legacy dependency
+│   │   ├── lib/boa-button/
 │   │   ├── lib/boa-card/
 │   │   ├── lib/boa-alert/
 │   │   ├── lib/boa-account-tile/
@@ -126,8 +126,3 @@ All figures come from TypeScript fixtures in `libs/banking-data`:
 - ~37 deposit transactions across the two accounts (payroll, rent, utilities, Zelle, ATM, interest, tax refund) and 22 card transactions, newest first
 - Credit Card ••9012 — balance $1,248.23, available credit $8,751.77, minimum payment $45.00, due Aug 28
 - Market summary: indices, BAC, Treasury yield, gold, crude, FX pairs, VIX, prime rate, and the 30-year mortgage rate
-
-## Migration exercise
-
-This repository intentionally contains one planted legacy dependency for a later Angular 18 migration
-analysis. See [MIGRATION-NOTES.md](./MIGRATION-NOTES.md) — do not "fix" it in the Angular 14 baseline.
