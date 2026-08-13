@@ -52,7 +52,14 @@ Open the browser console to watch the mocked analytics SDK: every tracked event 
 npm run build:all   # production build of both apps (also: build:banking, build:credit)
 npm test            # Karma/Jasmine unit tests for both apps and all three libraries
 npm run lint        # ESLint (@angular-eslint) across every project
+npm run e2e         # Playwright smoke + visual suite (starts both dev servers itself)
+npm run e2e:ui      # the same suite in Playwright's UI mode
 ```
+
+The Playwright suite lives in `e2e/` and covers both golden paths, the auth-guard redirects, the
+`[boa-analytics]` events, and pixel baselines of the toolbar and the `$`-prefixed amount inputs.
+First run needs `npx playwright install chromium`; refresh the pixel baselines with
+`npm run e2e -- --update-snapshots`.
 
 `npm test` runs headless Chrome. If Karma cannot find a browser, set `CHROME_BIN`, e.g.
 `CHROME_BIN=$(which google-chrome) npm test`.

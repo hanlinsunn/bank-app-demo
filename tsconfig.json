@@ -29,6 +29,10 @@
       "dom"
     ]
   },
+  /* Playwright ships types that need TypeScript 5; the e2e suite is transpiled by Playwright itself. */
+  "exclude": [
+    "e2e"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

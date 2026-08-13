@@ -31,6 +31,7 @@ Node types do not compile under TypeScript 4.7.
 | Credit Card Portal golden path | pass — login → card overview → transactions → $45 payment |
 | `[boa-analytics]` console events | pass |
 | Visual spot-check | captured as the reference set below |
+| `npm run e2e` | pass — 8 Playwright tests (4 per app) |
 
 ## Production bundle sizes (baseline for budget comparison)
 
@@ -47,3 +48,21 @@ style warning 4 kB / error 8 kB.
 Baseline screenshots of both apps' key screens (login, overview, transactions, transfer/payment
 forms) are attached to Jira KAN-9. They are the comparison set for the Material MDC phase
 (KAN-3), which changes button, card, form-field, and select DOM and class names.
+
+Per the KAN-10 decision, pixel-perfect fidelity is only required for the **toolbar** and the
+**amount inputs with their `$` prefix**; MDC differences elsewhere are accepted as long as layout
+and spacing stay sane. Those two areas are locked in as Playwright snapshots under
+`e2e/*-snapshots/` and fail the suite if the migration shifts them.
+
+## End-to-end suite
+
+`npm run e2e` starts both dev servers and runs `e2e/`:
+
+| Spec | Coverage |
+| --- | --- |
+| `online-banking.spec.ts` | guard redirect to `/login?returnUrl=…`, SSO sign-in, balances, market summary, account switch on transactions, $250 transfer receipt, sign-out, analytics events |
+| `credit-card-portal.spec.ts` | guard redirect, SSO sign-in, balance/available credit/minimum due, transactions, $45 payment receipt, analytics events |
+| `visual-*.spec.ts` | toolbar and amount-input pixel baselines |
+
+The specs address elements by role, label, and user-visible text rather than Material class names,
+so they should survive the MDC migration; a failure there means real behaviour changed.
