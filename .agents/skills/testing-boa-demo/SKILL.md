@@ -1,15 +1,21 @@
 ---
 name: testing-boa-demo
-description: How to run and manually test the BoA Angular 14 demo monorepo (online-banking :4200, credit-card-portal :4201).
+description: How to run and manually test the BoA Angular demo monorepo (online-banking :4200, credit-card-portal :4201), including the Angular/Material upgrade phases.
 ---
 
-# Testing the BoA Angular 14 demo monorepo
+# Testing the BoA Angular demo monorepo
 
 ## Running
 - `npm ci` (or reuse existing `node_modules`), then `npm run start:all` from the repo root.
   - online-banking → http://localhost:4200, credit-card-portal → http://localhost:4201.
   - First compile takes 30-60s; wait for `✔ Compiled successfully.` twice in the serve log before driving the browser.
 - Individually: `npm run start:banking` / `npm run start:credit`.
+- Other checks: `npm run build:all`, `npm test`, `npm run lint`.
+- Playwright: **must** pass the config path — `npm run e2e` (= `playwright test -c e2e/playwright.config.ts`).
+  Running `npx playwright test e2e/<spec>.ts` without `-c e2e/playwright.config.ts` fails with
+  `page.goto: Cannot navigate to invalid URL` because the per-app `baseURL` projects are never loaded.
+  To run only the pixel suites: `npx playwright test -c e2e/playwright.config.ts visual-online-banking visual-credit-card-portal`.
+  Playwright reuses an already-running `start:all`, so no need to stop the dev servers first.
 
 ## Auth
 - No credentials/secrets needed. All routes except `/login` are behind `BoaAuthGuard`; hitting one signed out redirects to `/login?returnUrl=...`.
@@ -25,6 +31,26 @@ description: How to run and manually test the BoA Angular 14 demo monorepo (onli
 ## Analytics verification
 - The mocked SDK (`libs/integrations/.../boa-analytics.service.ts`) uses `console.info('[boa-analytics]', event, props)`.
 - Open DevTools Console and type `boa-analytics` in the filter box. Expect `login_success`, `account_viewed`, `transfer_started`, `transfer_submitted` (:4200) and `credit_card_payment_started`, `credit_card_payment_submitted` (:4201).
+
+## Angular / Material version notes
+- Verify the running framework version from the DOM: `<app-root ng-version="...">` in DevTools Elements.
+- The design system deliberately targets Angular Material's **legacy (pre-MDC)** components. From Material 15 on
+  these live behind `@angular/material/legacy-*` entry points and are imported with aliases, e.g.
+  `import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';`, with
+  `mat.legacy-core()` / `mat.all-legacy-component-typographies()` / `mat.all-legacy-component-themes()` /
+  `mat.define-legacy-typography-config()` in `libs/boa-design-system/src/styles/boa-theme.scss`.
+  Material 17 deletes those entry points, so the MDC phase must move the wrappers.
+- Visual-fidelity regression signal after any Material bump: the pixel baselines in
+  `e2e/*-snapshots/*.png` were captured on Angular 14. If they still pass, the legacy look
+  (navy toolbar, filled navy raised button, legacy form field with `$` prefix) is preserved.
+  If they fail with outlined/filled MDC-style boxes or taller fields, the legacy mixins/imports regressed.
+- Expect `@types/node` and TypeScript to be pinned per Angular major; do not bump them independently.
+
+## Expected non-issues (do not report as regressions)
+- DevTools **Issues** panel shows a few `Incorrect use of <label for=FORM_ELEMENT>` entries on any page with
+  `mat-form-field` + `mat-select`. This comes from legacy Material's own markup, is not a console error,
+  and is present across versions. Judge console health by red **Console** errors, not the Issues badge.
+- The console always logs `[webpack-dev-server]` and `Angular is running in development mode` info lines.
 
 ## Known gotcha: empty mat-select
 - Any component exposing options as a **getter** returning a fresh Observable (e.g. `get accountOptions$() { return this.accounts$.pipe(map(...)) }`) combined with `*ngFor="let o of options$ | async"` will render **zero options** because the `async` pipe re-subscribes on every change-detection cycle and the mocked services have a 300 ms `delay()`. The mat-select then shows no value and appears not to open.
