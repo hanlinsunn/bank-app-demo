@@ -21,7 +21,7 @@ import { Account } from '@boa/models';
       }
 
       .boa-account-tile {
-        padding: 18px;
+        padding: 22px;
         border-radius: 10px;
         height: 100%;
         box-sizing: border-box;
@@ -39,7 +39,7 @@ import { Account } from '@boa/models';
         gap: 8px;
         align-items: baseline;
         color: rgba(0, 0, 0, 0.6);
-        font-size: 13px;
+        font-size: 15px;
       }
 
       .boa-account-tile__nickname {
@@ -48,13 +48,14 @@ import { Account } from '@boa/models';
       }
 
       .boa-account-tile__balance {
-        font-size: 26px;
+        font-size: 34px;
         font-weight: 600;
+        font-variant-numeric: tabular-nums;
       }
 
       .boa-account-tile__caption {
         color: rgba(0, 0, 0, 0.54);
-        font-size: 12px;
+        font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 0.6px;
       }

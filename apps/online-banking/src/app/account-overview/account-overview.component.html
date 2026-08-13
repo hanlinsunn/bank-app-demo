@@ -21,7 +21,7 @@
           <span class="market__label">{{ indicator.label }}</span>
           <span class="market__value">{{ indicator.value }}</span>
           <span class="market__change" [class.market__change--down]="indicator.changePercent < 0">
-            {{ indicator.changePercent > 0 ? '+' : '' }}{{ indicator.changePercent }}%
+            {{ indicator.changePercent > 0 ? '+' : '' }}{{ indicator.changePercent | number: '1.2-2' }}%
           </span>
         </li>
       </ul>

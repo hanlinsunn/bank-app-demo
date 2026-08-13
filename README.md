@@ -123,9 +123,9 @@ An ESLint `no-restricted-imports` rule in both apps fails the build if an applic
 All figures come from TypeScript fixtures in `libs/banking-data`:
 
 - Checking ••1234 — $8,420.17 · Savings ••5678 — $24,230.55
-- ~22 deposit transactions across the two accounts (payroll, rent, utilities, Zelle, ATM, interest, tax refund) and 14 card transactions, newest first
+- ~37 deposit transactions across the two accounts (payroll, rent, utilities, Zelle, ATM, interest, tax refund) and 22 card transactions, newest first
 - Credit Card ••9012 — balance $1,248.23, available credit $8,751.77, minimum payment $45.00, due Aug 28
-- Market summary: indices, BAC, Treasury yield, gold, crude, EUR/USD, and the 30-year mortgage rate
+- Market summary: indices, BAC, Treasury yield, gold, crude, FX pairs, VIX, prime rate, and the 30-year mortgage rate
 
 ## Migration exercise
 

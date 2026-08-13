@@ -23,6 +23,9 @@ export class MarketDataProviderService {
         { label: 'WTI Crude', value: '$78.42', changePercent: 1.06 },
         { label: 'EUR / USD', value: '1.0874', changePercent: -0.08 },
         { label: '30-Year Fixed Mortgage', value: '6.74%', changePercent: -0.05 },
+        { label: 'Prime Rate', value: '8.50%', changePercent: 0.0 },
+        { label: 'CBOE Volatility Index', value: '13.92', changePercent: -1.34 },
+        { label: 'USD / JPY', value: '157.21', changePercent: 0.23 },
       ],
     };
     return of(summary).pipe(delay(400));

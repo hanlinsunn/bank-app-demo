@@ -8,14 +8,14 @@
 
   &__product {
     opacity: 0.75;
-    font-size: 14px;
+    font-size: 15px;
   }
 
   &__nav {
     display: flex;
-    gap: 18px;
-    margin-left: 24px;
-    font-size: 14px;
+    gap: 22px;
+    margin-left: 28px;
+    font-size: 16px;
 
     a {
       color: rgba(255, 255, 255, 0.82);
@@ -35,13 +35,13 @@
   }
 
   &__user {
-    font-size: 14px;
+    font-size: 15px;
     opacity: 0.9;
   }
 }
 
 .app-content {
-  max-width: 1040px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 28px 20px 56px;
+  padding: 32px 24px 64px;
 }

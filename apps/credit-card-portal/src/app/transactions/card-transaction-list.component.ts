@@ -25,20 +25,22 @@ import { Transaction } from '@boa/models';
 
       .txns__row {
         display: grid;
-        grid-template-columns: 72px 1fr auto;
-        gap: 12px;
+        grid-template-columns: 84px 1fr auto;
+        gap: 16px;
         align-items: baseline;
-        padding: 10px 0;
+        padding: 13px 0;
         border-bottom: 1px solid var(--boa-border);
+        font-size: 16px;
       }
 
       .txns__date {
         color: rgba(0, 0, 0, 0.54);
-        font-size: 13px;
+        font-size: 15px;
       }
 
       .txns__amount {
         font-weight: 600;
+        font-variant-numeric: tabular-nums;
       }
 
       .txns__amount--credit {
@@ -46,7 +48,7 @@ import { Transaction } from '@boa/models';
       }
 
       .txns__empty {
-        padding: 12px 0;
+        padding: 16px 0;
         color: rgba(0, 0, 0, 0.54);
       }
     `,
