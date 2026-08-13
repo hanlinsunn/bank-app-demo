@@ -41,7 +41,15 @@
                 "message": "Applications must use <boa-button> from @boa/design-system."
               },
               {
+                "name": "@angular/material/legacy-button",
+                "message": "Applications must use <boa-button> from @boa/design-system."
+              },
+              {
                 "name": "@angular/material/card",
+                "message": "Applications must use <boa-card> or <boa-account-tile> from @boa/design-system."
+              },
+              {
+                "name": "@angular/material/legacy-card",
                 "message": "Applications must use <boa-card> or <boa-account-tile> from @boa/design-system."
               }
             ]

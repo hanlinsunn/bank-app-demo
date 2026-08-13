@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { BoaButtonComponent } from './boa-button.component';
 
 /**
- * Wraps the Angular Material 14 button, the pre-MDC ("legacy") button
- * implementation. See MIGRATION-NOTES.md: this is the intentional migration gap
- * for the Angular 18 exercise.
+ * Wraps the Angular Material legacy (pre-MDC) button. See MIGRATION-NOTES.md:
+ * this is the intentional migration gap for the Angular 18 exercise; Material 17
+ * deletes the legacy entry point, so the MDC phase has to move this wrapper.
  */
 @NgModule({
   declarations: [BoaButtonComponent],

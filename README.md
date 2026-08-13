@@ -1,15 +1,16 @@
-# BoA Digital Banking — Angular 14 Demo
+# BoA Digital Banking — Angular 15 Demo
 
-A small, self-contained Angular 14 monorepo that simulates a simplified Bank of America digital
+A small, self-contained Angular 15 monorepo that simulates a simplified Bank of America digital
 banking environment: two customer-facing applications sharing one internal component library, plus
 mocked SSO, analytics, and financial-data integrations.
 
-This is deliberately the **pre-migration** state of the application. Nothing here talks to a real
-backend, database, cloud service, or identity provider.
+This is an in-progress state of the Angular 14 → 18 migration: the framework and toolchain are on
+v15 while Angular Material still uses the *legacy* (pre-MDC) entry points, which the MDC phase
+replaces. Nothing here talks to a real backend, database, cloud service, or identity provider.
 
 ```
 Online Banking ─┐
-                ├─→ boa-design-system ─→ Angular Material 14 ─→ Angular 14
+                ├─→ boa-design-system ─→ Angular Material 15 (legacy/pre-MDC) ─→ Angular 15
 Credit Card Portal ─┘
         │
         └─→ integrations (SSO · analytics · market data) ─→ banking-data (mock fixtures)
@@ -27,9 +28,9 @@ independent consumers of one internal library — the shape of the real migratio
 
 ## Quick start
 
-Requires Node.js 20 LTS (pinned in `.nvmrc`; the Angular 14 CLI prints an unsupported-engine warning
+Requires Node.js 20 LTS (pinned in `.nvmrc`; the Angular 15 CLI prints an unsupported-engine warning
 on it, which is expected and harmless) and a Chrome/Chromium install for the Karma test runner.
-Node 20 is the version the Angular 15→18 migration targets, so the baseline is verified on it.
+Node 20 is the version the Angular 16→18 migration targets, so every phase is verified on it.
 
 ```bash
 npm install
@@ -116,7 +117,7 @@ wrappers only:
 - `<boa-account-tile>` — account nickname, masked number, and formatted balance
 
 An ESLint `no-restricted-imports` rule in both apps fails the build if an application imports
-`@angular/material/button` or `@angular/material/card` directly.
+`@angular/material/button`, `@angular/material/card`, or their `legacy-` equivalents directly.
 
 ## Mocked integrations
 
