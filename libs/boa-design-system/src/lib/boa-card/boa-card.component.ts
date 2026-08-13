@@ -44,18 +44,18 @@ import { Component, Input } from '@angular/core';
         display: flex;
         align-items: baseline;
         gap: 10px;
-        padding: 16px 16px 0;
+        padding: 20px 20px 0;
       }
 
       .boa-card__heading {
         margin: 0;
-        font-size: 18px;
+        font-size: 21px;
         font-weight: 600;
       }
 
       .boa-card__subheading {
         color: rgba(0, 0, 0, 0.54);
-        font-size: 13px;
+        font-size: 15px;
       }
     `,
   ],

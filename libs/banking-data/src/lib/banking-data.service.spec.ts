@@ -2,6 +2,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Account, CardPaymentReceipt, CreditCardAccount, Transaction, TransferReceipt } from '@boa/models';
 import { AccountService } from './account.service';
 import { CreditCardService } from './credit-card.service';
+import { DEPOSIT_TRANSACTIONS } from './fixtures/transactions.fixture';
 import { MOCK_LATENCY_MS } from './mock-latency';
 import { TransactionService } from './transaction.service';
 import { TransferService } from './transfer.service';
@@ -26,11 +27,9 @@ describe('banking-data services', () => {
       .subscribe((value) => (transactions = value));
     tick(MOCK_LATENCY_MS);
 
-    expect(transactions.map((transaction) => transaction.description)).toEqual([
-      'Whole Foods',
-      'Payroll Deposit',
-      'Uber',
-    ]);
+    expect(transactions.map((transaction) => transaction.description)).toEqual(
+      DEPOSIT_TRANSACTIONS.slice(0, 3).map((transaction) => transaction.description)
+    );
   }));
 
   it('confirms a valid transfer', fakeAsync(() => {

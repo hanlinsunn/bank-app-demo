@@ -1,7 +1,7 @@
 .page-title {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
-  margin: 0 0 20px;
+  margin: 0 0 24px;
 }
 
 .summary {
@@ -13,12 +13,13 @@
 }
 
 .metric {
-  font-size: 26px;
+  font-size: 34px;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
 
   &__caption {
-    margin: 6px 0 14px;
-    font-size: 12px;
+    margin: 8px 0 16px;
+    font-size: 15px;
     color: rgba(0, 0, 0, 0.54);
   }
 }

@@ -1,7 +1,7 @@
 .page-title {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
-  margin: 0 0 20px;
+  margin: 0 0 24px;
 }
 
 .accounts {
@@ -29,10 +29,11 @@
   &__row {
     display: grid;
     grid-template-columns: 1fr auto auto;
-    gap: 12px;
+    gap: 16px;
     align-items: baseline;
-    padding: 10px 0;
+    padding: 13px 0;
     border-bottom: 1px solid var(--boa-border);
+    font-size: 16px;
   }
 
   &__label {
@@ -41,11 +42,13 @@
 
   &__value {
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
   }
 
   &__change {
     color: #137333;
-    font-size: 13px;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
 
     &--down {
       color: #c5221f;
@@ -53,8 +56,8 @@
   }
 
   &__source {
-    margin: 14px 0 0;
-    font-size: 12px;
+    margin: 16px 0 0;
+    font-size: 13px;
     color: rgba(0, 0, 0, 0.5);
   }
 }
