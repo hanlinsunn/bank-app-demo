@@ -59,14 +59,17 @@ $boa-primary: mat.define-palette($boa-primary-palette, 500);
 $boa-accent: mat.define-palette($boa-accent-palette, 500);
 $boa-warn: mat.define-palette(mat.$red-palette);
 
-// MDC level names; `body-1` also drives input text, which used to have its own
-// `$input` level.
+// MDC level names, mapped the way Material's own `private-typography-to-2018-config`
+// maps them: legacy `body-2` -> `subtitle-2`, legacy `body-1` -> `body-2`. `body-1`
+// deliberately deviates from that table (it would be the legacy `subheading-1`)
+// because MDC form fields take input text from it, replacing the removed `$input`
+// level, so it keeps the old input values.
 $boa-typography: mat.define-typography-config(
   $font-family: "'Helvetica Neue', Helvetica, Arial, sans-serif",
   $headline-5: mat.define-typography-level(30px, 38px, 600),
   $headline-6: mat.define-typography-level(22px, 30px, 600),
   $subtitle-1: mat.define-typography-level(20px, 28px, 600),
-  $subtitle-2: mat.define-typography-level(17px, 26px, 500),
+  $subtitle-2: mat.define-typography-level(16px, 26px, 500),
   $body-1: mat.define-typography-level(16px, 26px, 400),
   $body-2: mat.define-typography-level(16px, 26px, 400),
   $caption: mat.define-typography-level(14px, 22px, 400),
