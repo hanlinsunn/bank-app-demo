@@ -17,10 +17,12 @@ describe('MarketDataProviderService', () => {
     expect(summary).toBeUndefined();
     tick(400);
 
-    expect(summary?.indicators.map((indicator) => indicator.label)).toEqual([
+    expect(summary?.indicators.length).toBeGreaterThan(5);
+    expect(summary?.indicators.map((indicator) => indicator.label).slice(0, 3)).toEqual([
       'S&P 500',
       '10-Year Treasury Yield',
       'Dow Jones',
     ]);
+    expect(summary?.indicators.every((indicator) => !!indicator.value)).toBeTrue();
   }));
 });

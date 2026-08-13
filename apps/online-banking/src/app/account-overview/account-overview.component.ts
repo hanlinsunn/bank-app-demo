@@ -23,7 +23,7 @@ export class AccountOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.accounts$ = this.accountService.getAccounts();
-    this.recentActivity$ = this.transactionService.getRecentActivity(3);
+    this.recentActivity$ = this.transactionService.getRecentActivity(8);
     this.marketSummary$ = this.marketData.getMarketSummary();
     this.analytics.track('account_viewed', { app: 'online-banking', view: 'account-overview' });
   }

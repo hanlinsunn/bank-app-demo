@@ -9,8 +9,9 @@
 </section>
 
 <div class="panels">
-  <boa-card heading="Recent activity" subheading="Advantage Plus Banking ••1234">
+  <boa-card heading="Recent activity" subheading="Advantage Plus Banking ••1234" [showActions]="true">
     <app-transaction-list [transactions]="(recentActivity$ | async) ?? []"></app-transaction-list>
+    <boa-button boaCardActions variant="ghost" routerLink="/transactions">View all transactions</boa-button>
   </boa-card>
 
   <boa-card heading="Market summary" [subheading]="(marketSummary$ | async)?.asOf ?? ''">
