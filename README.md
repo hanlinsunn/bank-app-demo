@@ -5,12 +5,13 @@ banking environment: two customer-facing applications sharing one internal compo
 mocked SSO, analytics, and financial-data integrations.
 
 This is an in-progress state of the Angular 14 → 18 migration: the framework and toolchain are on
-v15 while Angular Material still uses the *legacy* (pre-MDC) entry points, which the MDC phase
-replaces. Nothing here talks to a real backend, database, cloud service, or identity provider.
+v15 and Angular Material is on the MDC-based components, so nothing depends on the `legacy-*` entry
+points that Material 17 deletes. Nothing here talks to a real backend, database, cloud service, or
+identity provider.
 
 ```
 Online Banking ─┐
-                ├─→ boa-design-system ─→ Angular Material 15 (legacy/pre-MDC) ─→ Angular 15
+                ├─→ boa-design-system ─→ Angular Material 15 (MDC) ─→ Angular 15
 Credit Card Portal ─┘
         │
         └─→ integrations (SSO · analytics · market data) ─→ banking-data (mock fixtures)
@@ -117,7 +118,8 @@ wrappers only:
 - `<boa-account-tile>` — account nickname, masked number, and formatted balance
 
 An ESLint `no-restricted-imports` rule in both apps fails the build if an application imports
-`@angular/material/button`, `@angular/material/card`, or their `legacy-` equivalents directly.
+`@angular/material/button`, `@angular/material/card`, or their (now unused) `legacy-` equivalents
+directly.
 
 ## Mocked integrations
 

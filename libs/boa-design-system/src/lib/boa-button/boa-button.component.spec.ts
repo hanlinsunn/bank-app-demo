@@ -15,14 +15,14 @@ describe('BoaButtonComponent', () => {
 
   it('renders a raised Material button for the primary variant', () => {
     const button = fixture.nativeElement.querySelector('button');
-    expect(button.classList).toContain('mat-raised-button');
+    expect(button.classList).toContain('mat-mdc-raised-button');
   });
 
   it('renders a stroked Material button for the secondary variant', () => {
     component.variant = 'secondary';
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button');
-    expect(button.classList).toContain('mat-stroked-button');
+    expect(button.classList).toContain('mat-mdc-outlined-button');
   });
 
   it('emits pressed on click', () => {

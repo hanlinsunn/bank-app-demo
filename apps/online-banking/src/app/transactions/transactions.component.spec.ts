@@ -18,7 +18,7 @@ describe('TransactionsComponent', () => {
     fixture.detectChanges();
 
     const select = fixture.nativeElement.querySelector('mat-select');
-    expect(select.classList).not.toContain('mat-select-empty');
+    expect(select.classList).not.toContain('mat-mdc-select-empty');
     expect(select.textContent).toContain('••1234');
     expect(fixture.nativeElement.textContent).toContain('Whole Foods');
 

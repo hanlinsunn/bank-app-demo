@@ -34,27 +34,29 @@ description: How to run and manually test the BoA Angular demo monorepo (online-
 
 ## Angular / Material version notes
 - Verify the running framework version from the DOM: `<app-root ng-version="...">` in DevTools Elements.
-- The design system deliberately targets Angular Material's **legacy (pre-MDC)** components. From Material 15 on
-  these live behind `@angular/material/legacy-*` entry points and are imported with aliases, e.g.
-  `import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';`, with
-  `mat.legacy-core()` / `mat.all-legacy-component-typographies()` / `mat.all-legacy-component-themes()` /
-  `mat.define-legacy-typography-config()` in `libs/boa-design-system/src/styles/boa-theme.scss`.
-  Material 17 deletes those entry points, so the MDC phase must move the wrappers.
+- Since KAN-3 the design system is on the **MDC** components: plain `@angular/material/<component>`
+  imports and `mat.core()` / `mat.all-component-typographies()` / `mat.all-component-themes()` in
+  `libs/boa-design-system/src/styles/boa-theme.scss`. No `legacy-*` import should reappear — Material 17
+  deletes those entry points. DOM class names are `mat-mdc-*` (`mat-mdc-raised-button`,
+  `mat-mdc-outlined-button`, `mat-mdc-form-field`), which is what the button specs assert.
+- Text prefixes/suffixes must use `matTextPrefix` / `matTextSuffix`, not `matPrefix` — with `matPrefix`
+  MDC treats `$` as an icon prefix, drops the `mat-mdc-form-field-text-prefix` wrapper, and the symbol
+  ends up flush against the outline.
 - Visual-fidelity regression signal after any Material bump: the pixel baselines in
-  `e2e/*-snapshots/*.png` were captured on Angular 14. If they still pass, the legacy look
-  (navy toolbar, filled navy raised button, legacy form field with `$` prefix) is preserved.
-  If they fail with outlined/filled MDC-style boxes or taller fields, the legacy mixins/imports regressed.
+  `e2e/*-snapshots/*.png` were recaptured on Angular 15 + MDC. The intended look is a navy toolbar, a
+  filled navy primary button, an outlined secondary button, elevated (not outlined) white cards, and an
+  outlined amount field with a muted `$` prefix on the value's baseline.
 - Expect `@types/node` and TypeScript to be pinned per Angular major; do not bump them independently.
 
 ## Expected non-issues (do not report as regressions)
 - DevTools **Issues** panel shows a few `Incorrect use of <label for=FORM_ELEMENT>` entries on any page with
-  `mat-form-field` + `mat-select`. This comes from legacy Material's own markup, is not a console error,
+  `mat-form-field` + `mat-select`. This comes from Material's own markup, is not a console error,
   and is present across versions. Judge console health by red **Console** errors, not the Issues badge.
 - The console always logs `[webpack-dev-server]` and `Angular is running in development mode` info lines.
 
 ## Known gotcha: empty mat-select
 - Any component exposing options as a **getter** returning a fresh Observable (e.g. `get accountOptions$() { return this.accounts$.pipe(map(...)) }`) combined with `*ngFor="let o of options$ | async"` will render **zero options** because the `async` pipe re-subscribes on every change-detection cycle and the mocked services have a 300 ms `delay()`. The mat-select then shows no value and appears not to open.
-- Symptom to look for: `<mat-select class="... mat-select-empty" ng-reflect-value="chk-1234">` with no `mat-option` and no `.cdk-overlay-pane` after a click.
+- Symptom to look for: `<mat-select class="... mat-mdc-select-empty" ng-reflect-value="chk-1234">` with no `mat-option` and no `.cdk-overlay-pane` after a click.
 - Fix pattern: assign the observable once in `ngOnInit` (as `transfers.component.ts` does) instead of using a getter.
 
 ## Devin Secrets Needed
