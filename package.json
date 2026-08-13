@@ -17,7 +17,9 @@
     "test:design-system": "ng test boa-design-system --watch=false --browsers=ChromeHeadlessNoSandbox",
     "test:integrations": "ng test integrations --watch=false --browsers=ChromeHeadlessNoSandbox",
     "test:banking-data": "ng test banking-data --watch=false --browsers=ChromeHeadlessNoSandbox",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "e2e": "playwright test -c e2e/playwright.config.ts",
+    "e2e:ui": "playwright test -c e2e/playwright.config.ts --ui"
   },
   "private": true,
   "dependencies": {
@@ -44,6 +46,7 @@
     "@angular-eslint/template-parser": "14.4.0",
     "@angular/cli": "~14.2.13",
     "@angular/compiler-cli": "^14.2.0",
+    "@playwright/test": "1.49.1",
     "@types/jasmine": "~4.0.0",
     "@types/node": "^16.18.126",
     "@typescript-eslint/eslint-plugin": "5.43.0",
