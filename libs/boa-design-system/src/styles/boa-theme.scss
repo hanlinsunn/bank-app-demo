@@ -115,9 +115,9 @@ body {
   color: rgba(0, 0, 0, 0.6);
 }
 
-// MDC drops the infix's leading padding when a prefix is present, so restore it
-// to keep the currency symbol off the outline.
+// The field's own flex already supplies the 16px leading padding that lines the
+// currency symbol up with the floating label, so only the gap between the symbol
+// and the value is ours.
 .mat-mdc-form-field .mat-mdc-form-field-text-prefix {
-  padding-left: 16px;
   padding-right: 4px;
 }

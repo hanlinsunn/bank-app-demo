@@ -30,7 +30,9 @@ version is reached; the remaining items below are optional modernisations, not b
 - The schematic's dual legacy+MDC includes, `appearance="outlined"` on `<mat-card>` (legacy cards
   were elevated) and the reformatted inline `styles` blocks were reverted; the only hand-written
   remediation left is the currency prefix. `matPrefix` had to become `matTextPrefix` so MDC treats
-  `$` as a text prefix, and the theme restores the 16px leading padding MDC drops in that case.
+  `$` as a text prefix, and the theme adds the 4px gap between the symbol and the value. The field's
+  own flex supplies the 16px leading padding, so the prefix must not add its own — doing so pushed
+  the `$` 16px past the floating label (fixed after the phase landed).
 - Visual deltas that could not be styled away: MDC components are ~8px shorter at density 0, so the
   toolbar and amount-field pixel baselines in `e2e/*-snapshots/` were recaptured. Everything else
   (navy toolbar, filled navy primary button, outlined secondary, elevated white cards) matches.
