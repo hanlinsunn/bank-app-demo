@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "online-banking:build:production"
+              "buildTarget": "online-banking:build:production"
             },
             "development": {
-              "browserTarget": "online-banking:build:development"
+              "buildTarget": "online-banking:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "online-banking:build"
+            "buildTarget": "online-banking:build"
           }
         },
         "test": {
@@ -184,10 +184,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "credit-card-portal:build:production"
+              "buildTarget": "credit-card-portal:build:production"
             },
             "development": {
-              "browserTarget": "credit-card-portal:build:development"
+              "buildTarget": "credit-card-portal:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -198,7 +198,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "credit-card-portal:build"
+            "buildTarget": "credit-card-portal:build"
           }
         },
         "test": {
