@@ -33,7 +33,7 @@
     "@angular/platform-browser": "^18.2.14",
     "@angular/platform-browser-dynamic": "^18.2.14",
     "@angular/router": "^18.2.14",
-    "rxjs": "~7.5.0",
+    "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
@@ -48,7 +48,7 @@
     "@angular/compiler-cli": "^18.2.14",
     "@playwright/test": "1.49.1",
     "@types/jasmine": "~4.0.0",
-    "@types/node": "^16.18.126",
+    "@types/node": "^20.19.43",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "eslint": "^8.57.0",

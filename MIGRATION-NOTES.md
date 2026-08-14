@@ -1,8 +1,35 @@
 # Migration notes
 
 Angular 14 → Angular 18 exercise. Current state: **Angular 18 on MDC-based Angular Material**
-(Phase 1, KAN-2; Phase 1b, KAN-3; Phase 2, KAN-4; Phase 3, KAN-5; Phase 4, KAN-6). The target
-version is reached; the remaining items below are optional modernisations, not blockers.
+(Phase 1, KAN-2; Phase 1b, KAN-3; Phase 2, KAN-4; Phase 3, KAN-5; Phase 4, KAN-6; Phase 5, KAN-7).
+The target version is reached; the remaining items below are optional modernisations, not blockers.
+
+`BASELINE.md` is deliberately left as the historical Angular 14 (Phase 0) record — it documents the
+pre-migration state and the fidelity decisions, not the current one.
+
+## Final state (after Phase 5)
+
+| | |
+| --- | --- |
+| Angular / Material / CDK | 18.2.14 · 18.2.14 |
+| Angular CLI / devkit | 18.2.21 |
+| TypeScript · RxJS · zone.js | 5.4 · 7.8 · 0.14 |
+| `@types/node` | ^20 |
+| Node | 20 LTS (`.nvmrc`) |
+| Builder / test runner | `@angular-devkit/build-angular:browser` · Karma + Jasmine |
+| Rollback tags | `pre-migration-baseline`, `pre-ng15`, `pre-mdc`, `pre-ng16`, `pre-ng17`, `pre-ng18` |
+
+## Phase 5 (KAN-7): stabilization & documentation
+
+- Dropped the two pins the migration had been carrying: `@types/node` `^16` → `^20` (the ^16 pin
+  existed only because TypeScript 4.7 could not compile newer Node types; TS 5.4 can) and RxJS
+  `~7.5` → `~7.8`, the version Angular 18 is built against. No source changes were needed for either.
+- `README.md` describes Angular 18 and now says `npm ci`, not `npm install`: with `npm install` an
+  existing `node_modules` from an earlier phase can survive a major bump and produce a build on the
+  old Angular while `package.json` claims the new one.
+- Full regression gate re-run on the final dependency set: `build:all`, `npm test` (39 specs),
+  `npm run lint`, and the whole Playwright suite (both golden paths, guard redirects, analytics
+  events, and the toolbar/amount-input pixel baselines) plus a manual walkthrough of both apps.
 
 ## Phase 4 (KAN-6): Angular 18 core upgrade
 

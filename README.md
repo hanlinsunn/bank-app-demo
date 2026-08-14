@@ -1,17 +1,18 @@
-# BoA Digital Banking — Angular 17 Demo
+# BoA Digital Banking — Angular 18 Demo
 
-A small, self-contained Angular 17 monorepo that simulates a simplified Bank of America digital
+A small, self-contained Angular 18 monorepo that simulates a simplified Bank of America digital
 banking environment: two customer-facing applications sharing one internal component library, plus
 mocked SSO, analytics, and financial-data integrations.
 
-This is an in-progress state of the Angular 14 → 18 migration: the framework and toolchain are on
-v17 and Angular Material is on the MDC-based components (the `legacy-*` entry points no longer exist
-in Material 17). Nothing here talks to a real backend, database, cloud service, or
-identity provider.
+The Angular 14 → 18 migration is complete: the framework and toolchain are on v18 and Angular
+Material is on the MDC-based components with the M2 theming API (`mat.m2-*`). See
+[MIGRATION-NOTES.md](MIGRATION-NOTES.md) for the per-phase record and the modernisations still open
+(standalone components, functional guards, the application builder). Nothing here talks to a real
+backend, database, cloud service, or identity provider.
 
 ```
 Online Banking ─┐
-                ├─→ boa-design-system ─→ Angular Material 17 (MDC) ─→ Angular 17
+                ├─→ boa-design-system ─→ Angular Material 18 (MDC) ─→ Angular 18
 Credit Card Portal ─┘
         │
         └─→ integrations (SSO · analytics · market data) ─→ banking-data (mock fixtures)
@@ -30,10 +31,11 @@ independent consumers of one internal library — the shape of the real migratio
 ## Quick start
 
 Requires Node.js 20 LTS (pinned in `.nvmrc`) and a Chrome/Chromium install for the Karma test
-runner. Node 20 is the version the Angular 17→18 migration targets, so every phase is verified on it.
+runner. Node 20 satisfies every Angular version the migration passed through, so all phases were
+verified on one runtime.
 
 ```bash
-npm install
+npm ci   # `npm ci` rather than `npm install`, so the lockfile's Angular 18 versions are what you get
 
 npm run start:banking   # Online Banking      → http://localhost:4200
 npm run start:credit    # Credit Card Portal  → http://localhost:4201
