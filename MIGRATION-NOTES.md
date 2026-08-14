@@ -1,8 +1,23 @@
 # Migration notes
 
-Angular 14 → Angular 18 exercise. Current state: **Angular 15 on MDC-based Angular Material**
-(Phase 1, KAN-2; Phase 1b, KAN-3). Nothing imports a `legacy-*` entry point any more, so the
-Angular 17 phase — which deletes them — is unblocked.
+Angular 14 → Angular 18 exercise. Current state: **Angular 18 on MDC-based Angular Material**
+(Phase 1, KAN-2; Phase 1b, KAN-3; Phase 2, KAN-4; Phase 3, KAN-5; Phase 4, KAN-6). The target
+version is reached; the remaining items below are optional modernisations, not blockers.
+
+## Phase 4 (KAN-6): Angular 18 core upgrade
+
+- `ng update @angular/core@18 @angular/cli@18 @angular-eslint/schematics@18`, then
+  `ng update @angular/cdk@18 @angular/material@18`. Rollback tag: `pre-ng18`.
+- `@angular-eslint` had to go up in the same command: 17.x pins `@angular/cli` to `< 18.0.0`, so
+  updating core alone aborts on the peer conflict.
+- Material 18 renames the M2 theming API; its schematic rewrote `boa-theme.scss` to
+  `mat.m2-define-palette` / `mat.m2-define-typography-config` / `mat.m2-define-typography-level` /
+  `mat.m2-define-light-theme` and `mat.$m2-red-palette`. No visual change — same M2 theme, new names.
+- No core migrations applied (no HTTP modules, no `afterRender` phases, no invalid two-way bindings),
+  and TypeScript stays at 5.4 / zone.js at 0.14, which Angular 18 already requires.
+- The optional `use-application-builder` migration was **not** run: the karma/`browser` builder setup
+  is still the tested configuration for this repo, so switching build systems stays a separate task.
+- Bundles are unchanged in shape (`styles.css` 102 kB, main ~647 kB raw), well inside the 1 MB budget.
 
 ## Phase 1b (KAN-3): Material MDC migration
 
@@ -47,19 +62,18 @@ Material 17 deletes those entry points, so KAN-3 moved the wrapper to the MDC bu
 applications still only see `<boa-button>` (enforced by an ESLint `no-restricted-imports` rule in
 each app, which also blocks the legacy paths).
 
-## Other work an Angular 18 migration will surface
+## Optional modernisations still open on Angular 18
 
-Not planted deliberately, but real and worth discovering:
+None of these block the upgrade; they are the idiomatic-Angular-18 follow-ups:
 
 - **NgModule-based architecture**: every feature is declared in the app's `AppModule`; Angular 18
   favours standalone components and `provideRouter`.
 - **Class-based route guards**: `BoaAuthGuard implements CanActivate` is deprecated in favour of
   functional guards.
 - **Bootstrap path**: `platformBrowserDynamic().bootstrapModule()` and `zone.js` polyfill wiring.
-- **Toolchain**: Angular CLI builder configuration, `karma`/`jasmine` (Angular 18 defaults toward
-  the application builder and other test runners), and TypeScript 4.9 (Angular 18 requires 5.4+)
-  with the `@types/node@16` pin it still needs.
-- **RxJS 7.5** — Angular 18 expects RxJS 7.8+.
+- **Toolchain**: still the `@angular-devkit/build-angular:browser` builder plus karma/jasmine; the
+  application builder and a modern test runner are the next step (`@types/node` stays pinned to 16).
+- **RxJS 7.5** — within Angular 18's supported range, but 7.8 is the recommended floor.
 
 The mocked integrations (`BoaSsoService`, `BoaAnalyticsService`, `MarketDataProviderService`) must keep
 working unchanged across the migration; they are the stand-ins for internal platform dependencies.
