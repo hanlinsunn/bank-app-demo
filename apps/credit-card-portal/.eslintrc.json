@@ -10,7 +10,7 @@
       ],
       "parserOptions": {
         "project": [
-          "apps/credit-card-portal/tsconfig.app.json",
+          "apps/credit-card-portal/tsconfig.lint.json",
           "apps/credit-card-portal/tsconfig.spec.json"
         ]
       },

@@ -16,6 +16,9 @@ description: How to run and manually test the BoA Angular demo monorepo (online-
   `page.goto: Cannot navigate to invalid URL` because the per-app `baseURL` projects are never loaded.
   To run only the pixel suites: `npx playwright test -c e2e/playwright.config.ts visual-online-banking visual-credit-card-portal`.
   Playwright reuses an already-running `start:all`, so no need to stop the dev servers first.
+  After any Playwright version bump (each Angular major tends to bring one) the browser binary is
+  missing and every spec fails with `browserType.launch: Executable doesn't exist at
+  .../chromium_headless_shell-<build>/...`. Fix with `npx playwright install chromium` once, then rerun.
 
 ## Auth
 - No credentials/secrets needed. All routes except `/login` are behind `BoaAuthGuard`; hitting one signed out redirects to `/login?returnUrl=...`.
@@ -47,12 +50,21 @@ description: How to run and manually test the BoA Angular demo monorepo (online-
   filled navy primary button, an outlined secondary button, elevated (not outlined) white cards, and an
   outlined amount field with a muted `$` prefix on the value's baseline.
 - Expect `@types/node` and TypeScript to be pinned per Angular major; do not bump them independently.
+- Angular 17 (`ng update` 16→17, Material 17.3) required **no** pixel-baseline updates: the four
+  Angular-15-era MDC snapshots in `e2e/*-snapshots/` still match, so a visual diff after a Material
+  bump is a real regression signal rather than expected churn.
+- `ng update` to 17 also renames `browserTarget`→`buildTarget` in `angular.json`. Verify the DOM shows
+  `ng-version="17.x"`; a stale `16.x` means the dev server was not restarted after the upgrade.
 
 ## Expected non-issues (do not report as regressions)
 - DevTools **Issues** panel shows a few `Incorrect use of <label for=FORM_ELEMENT>` entries on any page with
   `mat-form-field` + `mat-select`. This comes from Material's own markup, is not a console error,
   and is present across versions. Judge console health by red **Console** errors, not the Issues badge.
 - The console always logs `[webpack-dev-server]` and `Angular is running in development mode` info lines.
+- ESLint's typed rules run against `apps/<app>/tsconfig.lint.json` (not `tsconfig.app.json`), because
+  `environment.prod.ts` reaches the build only through `fileReplacements`. Putting it in the build
+  tsconfig instead makes every dev serve log `environment.prod.ts is part of the TypeScript compilation
+  but it's unused`; leaving it out of both makes `npm run lint` fail on `@typescript-eslint` 7+.
 
 ## Known gotcha: empty mat-select
 - Any component exposing options as a **getter** returning a fresh Observable (e.g. `get accountOptions$() { return this.accounts$.pipe(map(...)) }`) combined with `*ngFor="let o of options$ | async"` will render **zero options** because the `async` pipe re-subscribes on every change-detection cycle and the mocked services have a 300 ms `delay()`. The mat-select then shows no value and appears not to open.

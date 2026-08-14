@@ -10,7 +10,7 @@
       ],
       "parserOptions": {
         "project": [
-          "apps/online-banking/tsconfig.app.json",
+          "apps/online-banking/tsconfig.lint.json",
           "apps/online-banking/tsconfig.spec.json"
         ]
       },

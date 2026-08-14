@@ -1,0 +1,8 @@
+/* TSConfig used by ESLint's typed rules: covers every source file in the project,
+   including ones the build only pulls in through `fileReplacements`. */
+{
+  "extends": "./tsconfig.app.json",
+  "include": [
+    "src/**/*.ts"
+  ]
+}
