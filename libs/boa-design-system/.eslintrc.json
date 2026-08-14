@@ -12,8 +12,7 @@
         "project": [
           "libs/boa-design-system/tsconfig.lib.json",
           "libs/boa-design-system/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
+        ]
       },
       "rules": {
         "@angular-eslint/directive-selector": [
