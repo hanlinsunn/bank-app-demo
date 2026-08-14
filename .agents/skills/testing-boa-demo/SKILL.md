@@ -55,6 +55,11 @@ description: How to run and manually test the BoA Angular demo monorepo (online-
   bump is a real regression signal rather than expected churn.
 - `ng update` to 17 also renames `browserTarget`→`buildTarget` in `angular.json`. Verify the DOM shows
   `ng-version="17.x"`; a stale `16.x` means the dev server was not restarted after the upgrade.
+- Angular 18 (`ng update` 17→18, Material 18.2): Material's schematic renames the M2 theming API in
+  `boa-theme.scss` (`mat.define-palette` → `mat.m2-define-palette`, `define-typography-config`/`-level`
+  → `m2-*`, `define-light-theme` → `m2-define-light-theme`, `mat.$red-palette` → `mat.$m2-red-palette`).
+  Values are unchanged, so — like 17 — it required **no** pixel-baseline updates. Verify the DOM shows
+  `ng-version="18.x"`.
 
 ## Expected non-issues (do not report as regressions)
 - DevTools **Issues** panel shows a few `Incorrect use of <label for=FORM_ELEMENT>` entries on any page with
