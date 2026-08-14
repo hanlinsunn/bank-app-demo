@@ -24,6 +24,11 @@ description: How to run and manually test the BoA Angular demo monorepo (online-
 - No credentials/secrets needed. All routes except `/login` are behind `BoaAuthGuard`; hitting one signed out redirects to `/login?returnUrl=...`.
 - Click **Sign in with BofA SSO** → signs in demo user "Alex Morgan" (demo-user-001), MFA always succeeds. Session lives in `localStorage`; clear it (or click **Sign out** in the toolbar) to retest the guard.
 - The two apps have separate origins (:4200 / :4201) so each needs its own sign-in.
+- **Before a regression run, sign out of both origins first.** The `localStorage` session survives dev-server
+  restarts and branch switches, so loading `localhost:420x` while still authenticated skips `/login`
+  entirely and a click where the SSO button *used to be* silently hits empty page background. The tell is
+  a `boa-analytics` console with `account_viewed` but **no** `login_success` — if you see that, sign out
+  from the toolbar and click **Sign in with BofA SSO** again so the journey is genuinely exercised.
 
 ## Key UI paths
 - Online banking toolbar: Accounts (`/account-overview`), Transactions (`/transactions`), Transfer money (`/transfers`).
@@ -70,6 +75,16 @@ description: How to run and manually test the BoA Angular demo monorepo (online-
   `environment.prod.ts` reaches the build only through `fileReplacements`. Putting it in the build
   tsconfig instead makes every dev serve log `environment.prod.ts is part of the TypeScript compilation
   but it's unused`; leaving it out of both makes `npm run lint` fail on `@typescript-eslint` 7+.
+
+## Regression passes after an RxJS bump
+- Every mocked service emits via `of(...).pipe(delay(300))`, so an RxJS bump (e.g. 7.5 → 7.8) touches
+  every async surface. A page screenshot alone is weak evidence: the async-subscription failure mode
+  renders a control that *looks* populated but has zero options. Cover, at minimum, the account tiles,
+  the transaction lists, the market summary on `/account-overview`, and **open** each `mat-select`
+  (`/transactions` account picker, `/transfers` From+To, `/payments` Pay-from) to confirm the option
+  lists materialize; on `/transactions` also switch accounts and confirm the rows change.
+- rxjs ~7.8 + `@types/node` ^20 on Angular 18 needed no source changes and produced no runtime
+  regressions or console errors.
 
 ## Known gotcha: empty mat-select
 - Any component exposing options as a **getter** returning a fresh Observable (e.g. `get accountOptions$() { return this.accounts$.pipe(map(...)) }`) combined with `*ngFor="let o of options$ | async"` will render **zero options** because the `async` pipe re-subscribes on every change-detection cycle and the mocked services have a 300 ms `delay()`. The mat-select then shows no value and appears not to open.
