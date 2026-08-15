@@ -73,7 +73,7 @@ boa-digital-banking/
 │       └── payments/                  # mocked payment submission
 ├── libs/
 │   ├── boa-design-system/src/
-│   │   ├── lib/boa-button/            # planted Angular 14 legacy dependency
+│   │   ├── lib/boa-button/            #  Angular 14 legacy dependency
 │   │   ├── lib/boa-card/
 │   │   ├── lib/boa-alert/
 │   │   ├── lib/boa-account-tile/
